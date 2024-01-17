@@ -88,6 +88,8 @@ Root delay      : 0.001655 seconds
 Root dispersion : 0.003307 seconds
 Update interval : 507.2 seconds
 Leap status     : Not synchronized
+NTP packets received       : 1269935491
+NTP packets dropped        : 0
 `
 
 	args := os.Args

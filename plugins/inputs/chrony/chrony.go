@@ -45,7 +45,8 @@ func (c *Chrony) Gather(acc telegraf.Accumulator) error {
 	if !c.DNSLookup {
 		flags = append(flags, "-n")
 	}
-	flags = append(flags, "tracking")
+
+	flags = append(flags, "-m", "tracking", "serverstats")
 
 	cmd := execCommand(c.path, flags...)
 	out, err := internal.CombinedOutputTimeout(cmd, time.Second*5)
@@ -59,6 +60,18 @@ func (c *Chrony) Gather(acc telegraf.Accumulator) error {
 	acc.AddFields("chrony", fields, tags)
 	return nil
 }
+
+//NTP packets received       : 1269935491
+//NTP packets dropped        : 0
+//Command packets received   : 18133
+//Command packets dropped    : 0
+//Client log records dropped : 1017470261
+//NTS-KE connections accepted: 0
+//NTS-KE connections dropped : 0
+//Authenticated NTP packets  : 0
+//Interleaved NTP packets    : 3054
+//NTP timestamps held        : 4096
+//NTP timestamp span         : 9009
 
 // processChronycOutput takes in a string output from the chronyc command, like:
 //
